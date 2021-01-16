@@ -7,7 +7,7 @@ import {
   TextInput,
   Modal,
 } from "react-native";
-import MapView, { Marker, Callout } from "react-native-maps";
+import MapView, { Marker, Callout, CalloutSubview } from "react-native-maps";
 import * as Location from "expo-location";
 import { Ionicons } from "@expo/vector-icons";
 import EventForm from "./EventForm";
@@ -27,6 +27,7 @@ const Map = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [search, setSearch] = useState("");
   const [loadingModal, setLoadingModal] = useState(true);
+  const [voteModal, setVoteModal] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -166,6 +167,10 @@ const Map = () => {
     });
   };
 
+  const makeVoteModal = (marker) => {
+    setVoteModal(true);
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <Modal visible={loadingModal}>
@@ -193,6 +198,26 @@ const Map = () => {
         </SafeAreaView>
       </Modal>
 
+      <Modal visible={voteModal} style={styles.voteModal}>
+        <Ionicons
+          name="close"
+          onPress={() => setVoteModal(false)}
+          size={30}
+          style={styles.closeButton}
+        ></Ionicons>
+        <SafeAreaView style={styles.voteView}>
+          <TouchableOpacity
+            style={styles.vote1}
+            onPress={() => console.log("test1")}
+          >
+            <Text style={styles.voteText}>Up!</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.vote2}>
+            <Text style={styles.voteText}>Down!</Text>
+          </TouchableOpacity>
+        </SafeAreaView>
+      </Modal>
+
       <MapView
         style={styles.map}
         region={region}
@@ -201,7 +226,7 @@ const Map = () => {
       >
         {markers.map((marker, i) => (
           <Marker key={i} coordinate={marker.latlng} description="test">
-            <Callout tooltip>
+            <Callout onPress={() => makeVoteModal(marker)} tooltip>
               <SafeAreaView>
                 <SafeAreaView style={styles.bubble}>
                   <Text>Address: {marker.address}</Text>
@@ -384,6 +409,50 @@ const styles = StyleSheet.create({
 
   loadingText: {
     fontSize: 40,
+  },
+
+  voteView: {
+    flexDirection: "row",
+    marginTop: 30,
+  },
+
+  vote1: {
+    position: "absolute",
+    left: 50,
+    top: 250,
+    marginRight: 30,
+
+    width: 125,
+    padding: 5,
+    justifyContent: "center",
+    alignItems: "center",
+    alignSelf: "center",
+    borderRadius: 10,
+    backgroundColor: "green",
+  },
+
+  vote2: {
+    position: "absolute",
+    right: 50,
+    marginLeft: 30,
+    top: 250,
+    padding: 5,
+    justifyContent: "center",
+    alignItems: "center",
+    alignSelf: "center",
+
+    borderRadius: 10,
+    backgroundColor: "red",
+    width: 125,
+  },
+
+  voteModal: {
+    padding: 100,
+    margin: 100,
+  },
+
+  voteText: {
+    fontSize: 30,
   },
 });
 
