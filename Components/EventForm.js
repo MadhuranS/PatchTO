@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   SafeAreaView,
@@ -18,13 +18,39 @@ export default function EventForm({ addMarkerButton, location, markers }) {
     // You can turn it in to your desired format
     return month + "-" + date + "-" + year; //format: dd-mm-yyyy;
   });
+  const get_address = () => {
+    return new Promise((resolve, reject) => {
+      fetch(
+        "https://jumbopowerfulcurrencies.patchto.repl.co/api/address/" +
+          location.coords.latitude +
+          "/" +
+          location.coords.longitude
+      )
+        .then((res) => res.json())
+        .then((res) => {
+          //setlinks(res);
+          console.log(res);
+          resolve(res);
+          //setloading2(false);
+        });
+    });
+  };
+  const [address, setAddress] = useState("");
+
+  useEffect(() => {
+    (async () => {
+      const address = await get_address();
+      setAddress(address);
+    })();
+  }, []);
 
   return (
     <SafeAreaView>
       <Formik
         initialValues={{ name: "", description: "" }}
         onSubmit={(values) => {
-          addMarkerButton(location, markers, values, date);
+          console.log(address);
+          addMarkerButton(location, markers, values, date, address);
         }}
       >
         {(props) => (

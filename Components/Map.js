@@ -54,8 +54,7 @@ const Map = () => {
     setMarkers([...markers, { latlng: e.nativeEvent.coordinate }]);
   };
 
-  const addMarkerButton = (location, markers, values, date) => {
-    console.log(location.coords.latitude);
+  const addMarkerButton = (location, markers, values, date, address) => {
     setMarkers([
       ...markers,
       {
@@ -65,9 +64,10 @@ const Map = () => {
         },
         values: values,
         date: date,
+        address: address.address,
       },
     ]);
-    console.log(markers);
+
     setModalOpen(false),
       setRegion({
         latitude: location.coords.latitude,
@@ -110,6 +110,7 @@ const Map = () => {
             <Callout tooltip>
               <SafeAreaView>
                 <SafeAreaView style={styles.bubble}>
+                  <Text>Address: {marker.address}</Text>
                   <Text>Date Posted: {marker.date}</Text>
                   <Text>Event Name: {marker.values.name}</Text>
                   <Text>Event Description: {marker.values.description}</Text>
