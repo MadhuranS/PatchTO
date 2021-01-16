@@ -3,22 +3,23 @@ import {
   StyleSheet,
   SafeAreaView,
   TextInput,
-  View,
+  Text,
   Button,
 } from "react-native";
 import { Formik } from "formik";
 
-export default function EventForm() {
+export default function EventForm({ addMarkerButton, location, markers }) {
   return (
     <SafeAreaView>
       <Formik
-        initialValues={{ name: "", time: "" }}
-        /*onSubmit={(values) => {
-          addItem(items, timestamp, values);
-        }}*/
+        initialValues={{ name: "", date: "" }}
+        onSubmit={(values) => {
+          addMarkerButton(location, markers);
+        }}
       >
         {(props) => (
           <SafeAreaView>
+            <Text style={styles.text}>Today's date</Text>
             <TextInput
               placeholder="Event name"
               onChangeText={props.handleChange("name")}
@@ -27,12 +28,17 @@ export default function EventForm() {
             ></TextInput>
 
             <TextInput
-              placeholder="Event time"
-              onChangeText={props.handleChange("time")}
-              value={props.values.time}
+              placeholder="Event Date"
+              onChangeText={props.handleChange("date")}
+              value={props.values.date}
               style={styles.input2}
+              multiline={true}
             ></TextInput>
-            <Button title="submit"></Button>
+            <Button
+              style={styles.submitButton}
+              title="submit"
+              onPress={props.handleSubmit}
+            ></Button>
           </SafeAreaView>
         )}
       </Formik>
@@ -44,8 +50,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  text: {
+    marginLeft: 5,
+    fontSize: 20,
+  },
   input1: {
-    marginTop: 40,
+    marginTop: 10,
     borderColor: "grey",
     height: 50,
     width: 400,
@@ -58,12 +68,16 @@ const styles = StyleSheet.create({
   input2: {
     marginTop: 10,
     borderColor: "grey",
-    height: 50,
+    height: 200,
     width: 400,
     marginLeft: 5,
     borderWidth: 5,
     paddingLeft: 10,
-    marginBottom: 5,
+    marginBottom: 20,
     borderRadius: 10,
+  },
+
+  submitButton: {
+    width: "30%",
   },
 });

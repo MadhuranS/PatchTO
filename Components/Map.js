@@ -54,7 +54,8 @@ const Map = () => {
     setMarkers([...markers, { latlng: e.nativeEvent.coordinate }]);
   };
 
-  const addMarkerButton = (location) => {
+  const addMarkerButton = (location, markers) => {
+    console.log(location.coords.latitude);
     setMarkers([
       ...markers,
       {
@@ -64,13 +65,13 @@ const Map = () => {
         },
       },
     ]);
-
-    setRegion({
-      latitude: location.coords.latitude,
-      longitude: location.coords.longitude,
-      latitudeDelta: 0.5,
-      longitudeDelta: 0.5,
-    });
+    setModalOpen(false),
+      setRegion({
+        latitude: location.coords.latitude,
+        longitude: location.coords.longitude,
+        latitudeDelta: 0.5,
+        longitudeDelta: 0.5,
+      });
   };
 
   return (
@@ -87,7 +88,11 @@ const Map = () => {
             size={30}
             style={styles.closeButton}
           ></Ionicons>
-          <EventForm></EventForm>
+          <EventForm
+            location={location}
+            addMarkerButton={addMarkerButton}
+            markers={markers}
+          ></EventForm>
         </SafeAreaView>
       </Modal>
 
