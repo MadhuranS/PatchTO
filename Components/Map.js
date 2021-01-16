@@ -51,10 +51,6 @@ const Map = () => {
     setRegion(newRegion);
   };
 
-  const addMarker = (e) => {
-    setMarkers([...markers, { latlng: e.nativeEvent.coordinate }]);
-  };
-
   const addMarkerButton = (location, markers, values, date, address) => {
     setMarkers([
       ...markers,
@@ -74,6 +70,10 @@ const Map = () => {
         location.coords.latitude +
         "/" +
         location.coords.longitude +
+        "/" +
+        values.name +
+        "/" +
+        values.description +
         "/" +
         date +
         "/" +
