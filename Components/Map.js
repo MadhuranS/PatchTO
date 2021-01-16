@@ -25,6 +25,7 @@ const Map = () => {
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     (async () => {
@@ -67,6 +68,7 @@ const Map = () => {
         address: address.address,
       },
     ]);
+    console.log(search);
 
     setModalOpen(false),
       setRegion({
@@ -75,6 +77,10 @@ const Map = () => {
         latitudeDelta: 0.5,
         longitudeDelta: 0.5,
       });
+  };
+
+  const newSearch = (search) => {
+    console.log(search);
   };
 
   return (
@@ -122,7 +128,13 @@ const Map = () => {
           </Marker>
         ))}
       </MapView>
-      <TextInput style={styles.input}></TextInput>
+      <TextInput
+        style={styles.input}
+        onChangeText={(search) => setSearch({ search })}
+      ></TextInput>
+      <TouchableOpacity style={styles.search} onPress={() => newSearch(search)}>
+        <Text style={styles.searchText}>Search</Text>
+      </TouchableOpacity>
       <TouchableOpacity
         style={styles.overlay}
         onPress={() => setModalOpen(true)}
@@ -156,6 +168,31 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     borderColor: "rgba(255, 255, 255, 1)",
     borderWidth: 5,
+  },
+
+  search: {
+    position: "absolute",
+    top: 80,
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    alignSelf: "center",
+    height: 30,
+    width: 70,
+    margin: "auto",
+    borderRadius: 10,
+    backgroundColor: "rgb(51, 204, 255)",
+    marginTop: 10,
+  },
+
+  searchText: {
+    fontSize: 15,
+    color: "rgba(255, 255, 255, 1)",
+    textAlign: "center",
+    justifyContent: "center",
+
+    alignItems: "center",
+    alignSelf: "center",
   },
   text: {
     fontSize: 50,
