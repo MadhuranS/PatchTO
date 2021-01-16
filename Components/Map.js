@@ -68,7 +68,6 @@ const Map = () => {
         address: address.address,
       },
     ]);
-    console.log(search);
 
     setModalOpen(false),
       setRegion({
