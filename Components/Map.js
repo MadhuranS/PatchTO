@@ -40,7 +40,6 @@ const Map = () => {
       }
 
       let location = await Location.getCurrentPositionAsync({});
-      console.log("usssseddd");
       setLocation(location);
       setLoadingModal(false);
     })();
@@ -99,8 +98,6 @@ const Map = () => {
         address.address
     );
 
-    console.log(search);
-
     setModalOpen(false),
       setRegion({
         latitude: location.coords.latitude,
@@ -110,8 +107,18 @@ const Map = () => {
       });
   };
 
-  const newSearch = (search) => {
-    console.log(search);
+  const newSearch = () => {
+    (async () => {
+      const coords = await get_coords();
+
+      setRegion({
+        latitude: coords.coordinates.lat,
+        longitude: coords.coordinates.lng,
+        latitudeDelta: 0.5,
+        longitudeDelta: 0.5,
+      });
+    })();
+    console.log("tessst");
   };
 
   const getLocation = () => {
@@ -123,7 +130,6 @@ const Map = () => {
       }
 
       let location = await Location.getCurrentPositionAsync({});
-      console.log(location);
       setLocation(location);
       setRegion({
         latitude: location.coords.latitude,
@@ -132,6 +138,23 @@ const Map = () => {
         longitudeDelta: 0.5,
       });
     })();
+  };
+
+  const get_coords = () => {
+    return new Promise((resolve, reject) => {
+      fetch(
+        "https://jumbopowerfulcurrencies.patchto.repl.co/api/coordinates/" +
+          search.search
+      )
+        .then((res) => res.json())
+        .then((res) => {
+          //setlinks(res);
+          resolve(res);
+
+          console.log(res);
+          //setloading2(false);
+        });
+    });
   };
 
   return (
@@ -191,7 +214,7 @@ const Map = () => {
         style={styles.input}
         onChangeText={(search) => setSearch({ search })}
       ></TextInput>
-      <TouchableOpacity style={styles.search} onPress={() => newSearch(search)}>
+      <TouchableOpacity style={styles.search} onPress={() => newSearch()}>
         <Text style={styles.searchText}>Search</Text>
       </TouchableOpacity>
       <TouchableOpacity
