@@ -26,10 +26,7 @@ const LoginScreen = (props) => {
   const login = () => {
     console.log("clicked");
     fetch(
-      "https://jumbopowerfulcurrencies.patchto.repl.co/auth/login/" +
-        email +
-        "/" +
-        password
+      "https://patchto.herokuapp.com/api/auth/login/" + email + "/" + password
     )
       .then((response) => response.json())
       .then((data) => {
@@ -53,6 +50,7 @@ const LoginScreen = (props) => {
           value={email}
         ></TextInput>
         <TextInput
+          secureTextEntry={true}
           style={styles.input}
           placeholder="password"
           onChangeText={(text) => setpassword(text)}

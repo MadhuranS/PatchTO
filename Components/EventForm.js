@@ -21,9 +21,9 @@ export default function EventForm({ addMarkerButton, location, markers }) {
   });
   const get_address = () => {
     return new Promise((resolve, reject) => {
-      console.log(location.coords);
+      console.log("Tes");
       fetch(
-        "https://jumbopowerfulcurrencies.patchto.repl.co/api/address/" +
+        "https://patchto.herokuapp.com/api/address/" +
           location.coords.latitude +
           "/" +
           location.coords.longitude

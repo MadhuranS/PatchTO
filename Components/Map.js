@@ -28,8 +28,6 @@ const Map = () => {
   const [search, setSearch] = useState("");
   const [loadingModal, setLoadingModal] = useState(true);
 
-  //https://jumbopowerfulcurrencies.patchto.repl.co/api/coordinates/106%20Dolly%20Varden%20Boulevard
-
   useEffect(() => {
     (async () => {
       let { status } = await Location.requestPermissionsAsync();
@@ -55,7 +53,7 @@ const Map = () => {
   }
 
   const getAllData = () => {
-    fetch("https://jumbopowerfulcurrencies.patchto.repl.co/data/read/pins")
+    fetch("https://patchto.herokuapp.com/api/pins/all")
       .then((response) => response.json())
       .then((data) => {
         setMarkers(data);
@@ -84,7 +82,7 @@ const Map = () => {
     ]);
 
     fetch(
-      "https://jumbopowerfulcurrencies.patchto.repl.co/data/write/pins/" +
+      "https://patchto.herokuapp.com/api/pins/create/" +
         location.coords.latitude +
         "/" +
         location.coords.longitude +
@@ -142,16 +140,12 @@ const Map = () => {
 
   const get_coords = () => {
     return new Promise((resolve, reject) => {
-      fetch(
-        "https://jumbopowerfulcurrencies.patchto.repl.co/api/coordinates/" +
-          search.search
-      )
+      fetch("https://patchto.herokuapp.com/api/coordinates/" + search.search)
         .then((res) => res.json())
         .then((res) => {
           //setlinks(res);
           resolve(res);
 
-          console.log(res);
           //setloading2(false);
         });
     });
@@ -255,12 +249,13 @@ const styles = StyleSheet.create({
   search: {
     position: "absolute",
     top: 80,
+    right: 70,
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
     alignSelf: "center",
     height: 30,
-    width: 70,
+    width: 125,
     margin: "auto",
     borderRadius: 10,
     backgroundColor: "rgb(51, 204, 255)",
@@ -269,7 +264,8 @@ const styles = StyleSheet.create({
 
   find: {
     position: "absolute",
-    top: 0,
+    top: 80,
+    left: 70,
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",

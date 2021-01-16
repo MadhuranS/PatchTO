@@ -26,10 +26,7 @@ const CreateUser = (props) => {
   const createNewUser = () => {
     console.log("clicked");
     fetch(
-      "https://jumbopowerfulcurrencies.patchto.repl.co/auth/create/" +
-        email +
-        "/" +
-        password
+      "https://patchto.herokuapp.com/api/auth/create/" + email + "/" + password
     )
       .then((response) => response.json())
       .then((data) => {
@@ -59,6 +56,7 @@ const CreateUser = (props) => {
           placeholder="password"
           onChangeText={(text) => setpassword(text)}
           value={password}
+          secureTextEntry={true}
         ></TextInput>
         <View style={{ alignItems: "flex-end", marginTop: 64 }}>
           <TouchableOpacity style={styles.screen} onPress={createNewUser}>
