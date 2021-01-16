@@ -38,6 +38,8 @@ const Map = () => {
       let location = await Location.getCurrentPositionAsync({});
       setLocation(location);
     })();
+
+    //getAllData();
   }, []);
 
   let text = "Waiting..";
@@ -46,6 +48,17 @@ const Map = () => {
   } else if (location) {
     text = JSON.stringify(location);
   }
+
+  const getAllData = () => {
+    fetch("https://jumbopowerfulcurrencies.patchto.repl.co/data/read/pins")
+      .then((response) => response.json())
+      .then((data) => {
+        setMarkers(data);
+      })
+      .catch((error) => {
+        Alert.alert("Error");
+      });
+  };
 
   const onRegionChange = (newRegion) => {
     setRegion(newRegion);
