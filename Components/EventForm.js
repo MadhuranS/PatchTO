@@ -29,7 +29,6 @@ export default function EventForm({ addMarkerButton, location, markers }) {
         .then((res) => res.json())
         .then((res) => {
           //setlinks(res);
-          console.log(res);
           resolve(res);
           //setloading2(false);
         });
@@ -49,7 +48,6 @@ export default function EventForm({ addMarkerButton, location, markers }) {
       <Formik
         initialValues={{ name: "", description: "" }}
         onSubmit={(values) => {
-          console.log(address);
           addMarkerButton(location, markers, values, date, address);
         }}
       >
