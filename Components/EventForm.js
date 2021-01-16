@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   SafeAreaView,
@@ -9,17 +9,27 @@ import {
 import { Formik } from "formik";
 
 export default function EventForm({ addMarkerButton, location, markers }) {
+  const [date, setDate] = useState(() => {
+    var date = new Date().getDate();
+    var month = new Date().getMonth() + 1;
+    var year = new Date().getFullYear();
+
+    //Alert.alert(date + '-' + month + '-' + year);
+    // You can turn it in to your desired format
+    return month + "-" + date + "-" + year; //format: dd-mm-yyyy;
+  });
+
   return (
     <SafeAreaView>
       <Formik
         initialValues={{ name: "", description: "" }}
         onSubmit={(values) => {
-          addMarkerButton(location, markers, values);
+          addMarkerButton(location, markers, values, date);
         }}
       >
         {(props) => (
           <SafeAreaView>
-            <Text style={styles.text}>Today's date</Text>
+            <Text style={styles.text}>{date}</Text>
             <TextInput
               placeholder="Event name"
               onChangeText={props.handleChange("name")}

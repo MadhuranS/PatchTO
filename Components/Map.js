@@ -54,7 +54,7 @@ const Map = () => {
     setMarkers([...markers, { latlng: e.nativeEvent.coordinate }]);
   };
 
-  const addMarkerButton = (location, markers, values) => {
+  const addMarkerButton = (location, markers, values, date) => {
     console.log(location.coords.latitude);
     setMarkers([
       ...markers,
@@ -64,6 +64,7 @@ const Map = () => {
           longitude: location.coords.longitude,
         },
         values: values,
+        date: date,
       },
     ]);
     console.log(markers);
@@ -107,9 +108,14 @@ const Map = () => {
         {markers.map((marker, i) => (
           <Marker key={i} coordinate={marker.latlng} description="test">
             <Callout tooltip>
-              <SafeAreaView style={styles.bubble}>
-                <Text>Event Name: {marker.values.name}</Text>
-                <Text>Event Description: {marker.values.description}</Text>
+              <SafeAreaView>
+                <SafeAreaView style={styles.bubble}>
+                  <Text>Date Posted: {marker.date}</Text>
+                  <Text>Event Name: {marker.values.name}</Text>
+                  <Text>Event Description: {marker.values.description}</Text>
+                </SafeAreaView>
+                <SafeAreaView style={styles.arrowBorder} />
+                <SafeAreaView style={styles.arrow} />
               </SafeAreaView>
             </Callout>
           </Marker>
@@ -194,10 +200,30 @@ const styles = StyleSheet.create({
   },
 
   bubble: {
-    backgroundColor: "#fff",
-    borderRadius: 10,
-    padding: 5,
+    flexDirection: "column",
     alignSelf: "flex-start",
+    backgroundColor: "#fff",
+    borderRadius: 6,
+    borderColor: "#ccc",
+    borderWidth: 0.5,
+    padding: 15,
+    width: 250,
+  },
+  arrow: {
+    backgroundColor: "transparent",
+    borderColor: "transparent",
+    borderTopColor: "#fff",
+    borderWidth: 16,
+    alignSelf: "center",
+    marginTop: -32,
+  },
+  arrowBorder: {
+    backgroundColor: "transparent",
+    borderColor: "transparent",
+    borderTopColor: "#007a87",
+    borderWidth: 16,
+    alignSelf: "center",
+    marginTop: -0.5,
   },
 });
 
