@@ -12,9 +12,9 @@ export default function EventForm({ addMarkerButton, location, markers }) {
   return (
     <SafeAreaView>
       <Formik
-        initialValues={{ name: "", date: "" }}
+        initialValues={{ name: "", description: "" }}
         onSubmit={(values) => {
-          addMarkerButton(location, markers);
+          addMarkerButton(location, markers, values);
         }}
       >
         {(props) => (
@@ -28,9 +28,9 @@ export default function EventForm({ addMarkerButton, location, markers }) {
             ></TextInput>
 
             <TextInput
-              placeholder="Event Date"
-              onChangeText={props.handleChange("date")}
-              value={props.values.date}
+              placeholder="Description"
+              onChangeText={props.handleChange("description")}
+              value={props.values.description}
               style={styles.input2}
               multiline={true}
             ></TextInput>
@@ -51,6 +51,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   text: {
+    marginTop: 20,
     marginLeft: 5,
     fontSize: 20,
   },

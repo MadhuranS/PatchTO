@@ -7,7 +7,7 @@ import {
   TextInput,
   Modal,
 } from "react-native";
-import MapView, { Marker } from "react-native-maps";
+import MapView, { Marker, Callout } from "react-native-maps";
 import * as Location from "expo-location";
 import { Ionicons } from "@expo/vector-icons";
 import EventForm from "./EventForm";
@@ -54,7 +54,7 @@ const Map = () => {
     setMarkers([...markers, { latlng: e.nativeEvent.coordinate }]);
   };
 
-  const addMarkerButton = (location, markers) => {
+  const addMarkerButton = (location, markers, values) => {
     console.log(location.coords.latitude);
     setMarkers([
       ...markers,
@@ -63,8 +63,10 @@ const Map = () => {
           latitude: location.coords.latitude,
           longitude: location.coords.longitude,
         },
+        values: values,
       },
     ]);
+    console.log(markers);
     setModalOpen(false),
       setRegion({
         latitude: location.coords.latitude,
@@ -100,10 +102,17 @@ const Map = () => {
         style={styles.map}
         region={region}
         onRegionChangeComplete={onRegionChange}
-        onPress={addMarker}
+        //onPress={addMarker}
       >
         {markers.map((marker, i) => (
-          <Marker key={i} coordinate={marker.latlng} />
+          <Marker key={i} coordinate={marker.latlng} description="test">
+            <Callout tooltip>
+              <SafeAreaView style={styles.bubble}>
+                <Text>Event Name: {marker.values.name}</Text>
+                <Text>Event Description: {marker.values.description}</Text>
+              </SafeAreaView>
+            </Callout>
+          </Marker>
         ))}
       </MapView>
       <TextInput style={styles.input}></TextInput>
@@ -182,6 +191,13 @@ const styles = StyleSheet.create({
     margin: 0,
     justifyContent: "center",
     alignItems: "center",
+  },
+
+  bubble: {
+    backgroundColor: "#fff",
+    borderRadius: 10,
+    padding: 5,
+    alignSelf: "flex-start",
   },
 });
 
