@@ -56,8 +56,19 @@ const Map = () => {
     fetch("https://patchto.herokuapp.com/api/pins/all")
       .then((response) => response.json())
       .then((data) => {
-        //console.log(data);
-        setMarkers(data);
+        console.log(data);
+
+        const arr = data.map((x) => {
+          const coors = x.latlng;
+          const lat = coors.latitude;
+          const lng = coors.longitude;
+          x.latlng = {
+            latitude: parseFloat(lat),
+            longitude: parseFloat(lng),
+          };
+        });
+
+        setMarkers(arr);
       })
       .catch((error) => {
         Alert.alert("Error");
