@@ -42,7 +42,7 @@ const Map = () => {
       setLoadingModal(false);
     })();
 
-    //getAllData();
+    getAllData();
   }, []);
 
   let text = "Waiting..";
@@ -56,6 +56,7 @@ const Map = () => {
     fetch("https://patchto.herokuapp.com/api/pins/all")
       .then((response) => response.json())
       .then((data) => {
+        //console.log(data);
         setMarkers(data);
       })
       .catch((error) => {
