@@ -5,6 +5,7 @@ import {
   TextInput,
   Text,
   Button,
+  Alert,
 } from "react-native";
 import { Formik } from "formik";
 
@@ -48,6 +49,15 @@ export default function EventForm({ addMarkerButton, location, markers }) {
       <Formik
         initialValues={{ name: "", description: "" }}
         onSubmit={(values) => {
+          if (values.name == "" || values.description == "") {
+            Alert.alert(
+              "Error",
+              "Please fill out event title and event description before submitting",
+              [{ text: "OK" }],
+              { cancelable: false }
+            );
+            return;
+          }
           addMarkerButton(location, markers, values, date, address);
         }}
       >
