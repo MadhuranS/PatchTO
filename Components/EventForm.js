@@ -4,7 +4,7 @@ import {
   SafeAreaView,
   TextInput,
   Text,
-  Button,
+  TouchableOpacity,
   Alert,
 } from "react-native";
 import { Formik } from "formik";
@@ -35,7 +35,7 @@ export default function EventForm({ addMarkerButton, location, markers }) {
         });
     });
   };
-  const [address, setAddress] = useState("");
+  const [address, setAddress] = useState("test");
 
   useEffect(() => {
     (async () => {
@@ -63,7 +63,8 @@ export default function EventForm({ addMarkerButton, location, markers }) {
       >
         {(props) => (
           <SafeAreaView>
-            <Text style={styles.text}>{date}</Text>
+            <Text style={styles.text1}>{address.address}</Text>
+            <Text style={styles.text2}>{date}</Text>
             <TextInput
               placeholder="Event name"
               onChangeText={props.handleChange("name")}
@@ -78,11 +79,12 @@ export default function EventForm({ addMarkerButton, location, markers }) {
               style={styles.input2}
               multiline={true}
             ></TextInput>
-            <Button
+            <TouchableOpacity
               style={styles.submitButton}
-              title="submit"
               onPress={props.handleSubmit}
-            ></Button>
+            >
+              <Text style={styles.submitText}>Submit</Text>
+            </TouchableOpacity>
           </SafeAreaView>
         )}
       </Formik>
@@ -94,20 +96,36 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  text: {
-    marginTop: 20,
+  text1: {
+    marginTop: 25,
     marginLeft: 5,
     fontSize: 20,
+    marginBottom: 5,
+    fontSize: 15,
+    paddingLeft: 7,
+    justifyContent: "center",
+    alignItems: "center",
+    alignSelf: "center",
+  },
+  text2: {
+    marginLeft: 5,
+    fontSize: 20,
+    fontSize: 15,
+    paddingLeft: 7,
+    justifyContent: "center",
+    alignItems: "center",
+    alignSelf: "center",
   },
   input1: {
-    marginTop: 10,
+    marginTop: 0,
     borderColor: "grey",
     height: 50,
     width: 400,
     marginLeft: 5,
-    borderWidth: 5,
+    borderBottomWidth: 1,
     paddingLeft: 10,
     borderRadius: 10,
+    fontSize: 20,
   },
 
   input2: {
@@ -116,13 +134,27 @@ const styles = StyleSheet.create({
     height: 200,
     width: 400,
     marginLeft: 5,
-    borderWidth: 5,
+    borderWidth: 2,
     paddingLeft: 10,
     marginBottom: 20,
     borderRadius: 10,
   },
 
   submitButton: {
-    width: "30%",
+    position: "absolute",
+    bottom: -50,
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    alignSelf: "center",
+    height: 50,
+    width: 200,
+    margin: "auto",
+    borderRadius: 50,
+    backgroundColor: "#9075E3",
+  },
+
+  submitText: {
+    color: "white",
   },
 });
