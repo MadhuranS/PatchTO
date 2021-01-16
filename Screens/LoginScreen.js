@@ -34,6 +34,7 @@ const LoginScreen = (props) => {
       .then((response) => response.json())
       .then((data) => {
         data.login === "success" ? console.log("perfect") : console.log("smd");
+        props.navigation.navigate("Map");
       })
       .catch((error) => {
         Alert.alert("Invalid credentials");
@@ -65,7 +66,7 @@ const LoginScreen = (props) => {
         <View>
           <TouchableOpacity
             style={styles.signup}
-            onPress={() => console.log("sign in nav")}
+            onPress={() => props.navigation.navigate("CreateUser")}
           >
             <Text>SignUp</Text>
           </TouchableOpacity>
