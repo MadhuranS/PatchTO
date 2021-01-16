@@ -68,6 +68,18 @@ const Map = () => {
         address: address.address,
       },
     ]);
+
+    fetch(
+      "https://jumbopowerfulcurrencies.patchto.repl.co/data/write/pins/" +
+        location.coords.latitude +
+        "/" +
+        location.coords.longitude +
+        "/" +
+        date +
+        "/" +
+        address.address
+    );
+
     console.log(search);
 
     setModalOpen(false),

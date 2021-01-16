@@ -36,7 +36,6 @@ const CreateUser = (props) => {
         data.created === "success"
           ? console.log("perfect")
           : console.log("smd");
-
         props.navigation.navigate("Map");
       })
       .catch((error) => {
