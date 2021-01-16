@@ -26,17 +26,23 @@ const Map = () => {
   const [errorMsg, setErrorMsg] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
   const [search, setSearch] = useState("");
+  const [loadingModal, setLoadingModal] = useState(true);
+
+  //https://jumbopowerfulcurrencies.patchto.repl.co/api/coordinates/106%20Dolly%20Varden%20Boulevard
 
   useEffect(() => {
     (async () => {
       let { status } = await Location.requestPermissionsAsync();
+
       if (status !== "granted") {
         setErrorMsg("Permission to access location was denied");
         return;
       }
 
       let location = await Location.getCurrentPositionAsync({});
+      console.log("usssseddd");
       setLocation(location);
+      setLoadingModal(false);
     })();
   }, []);
 
@@ -95,8 +101,33 @@ const Map = () => {
     console.log(search);
   };
 
+  const getLocation = () => {
+    (async () => {
+      let { status } = await Location.requestPermissionsAsync();
+      if (status !== "granted") {
+        setErrorMsg("Permission to access location was denied");
+        return;
+      }
+
+      let location = await Location.getCurrentPositionAsync({});
+      console.log(location);
+      setLocation(location);
+      setRegion({
+        latitude: location.coords.latitude,
+        longitude: location.coords.longitude,
+        latitudeDelta: 0.5,
+        longitudeDelta: 0.5,
+      });
+    })();
+  };
+
   return (
     <SafeAreaView style={styles.container}>
+      <Modal visible={loadingModal}>
+        <SafeAreaView style={styles.loading}>
+          <Text style={styles.loadingText}>Loading</Text>
+        </SafeAreaView>
+      </Modal>
       <Modal
         visible={modalOpen}
         animationType="slide"
@@ -140,6 +171,9 @@ const Map = () => {
           </Marker>
         ))}
       </MapView>
+      <TouchableOpacity style={styles.find} onPress={() => getLocation()}>
+        <Text style={styles.searchText}>Find Location</Text>
+      </TouchableOpacity>
       <TextInput
         style={styles.input}
         onChangeText={(search) => setSearch({ search })}
@@ -194,6 +228,21 @@ const styles = StyleSheet.create({
     margin: "auto",
     borderRadius: 10,
     backgroundColor: "rgb(51, 204, 255)",
+    marginTop: 10,
+  },
+
+  find: {
+    position: "absolute",
+    top: 0,
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    alignSelf: "center",
+    height: 30,
+    width: 125,
+    margin: "auto",
+    borderRadius: 10,
+    backgroundColor: "#9075E3",
     marginTop: 10,
   },
 
@@ -274,6 +323,20 @@ const styles = StyleSheet.create({
     borderWidth: 16,
     alignSelf: "center",
     marginTop: -0.5,
+  },
+
+  loading: {
+    padding: 30,
+    position: "absolute",
+    top: 50,
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    alignSelf: "center",
+  },
+
+  loadingText: {
+    fontSize: 40,
   },
 });
 

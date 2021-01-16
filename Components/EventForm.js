@@ -21,6 +21,7 @@ export default function EventForm({ addMarkerButton, location, markers }) {
   });
   const get_address = () => {
     return new Promise((resolve, reject) => {
+      console.log(location.coords);
       fetch(
         "https://jumbopowerfulcurrencies.patchto.repl.co/api/address/" +
           location.coords.latitude +
@@ -35,11 +36,12 @@ export default function EventForm({ addMarkerButton, location, markers }) {
         });
     });
   };
-  const [address, setAddress] = useState("test");
+  const [address, setAddress] = useState({ address: "test" });
 
   useEffect(() => {
     (async () => {
       const address = await get_address();
+      console.log(address);
       setAddress(address);
     })();
   }, []);
