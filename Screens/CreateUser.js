@@ -23,10 +23,24 @@ const CreateUser = (props) => {
   //     }, 1500);
   //   }, []);
 
-  //   const login = () => {
-
-  //     //Alert.alert("Invalid credentials");
-  //   };
+  const createNewUser = () => {
+    console.log("clicked");
+    fetch(
+      "https://jumbopowerfulcurrencies.patchto.repl.co/auth/create/" +
+        email +
+        "/" +
+        password
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        data.created === "success"
+          ? console.log("perfect")
+          : console.log("smd");
+      })
+      .catch((error) => {
+        Alert.alert("Invalid credentials");
+      });
+  };
 
   return (
     <View style={styles.container}>
@@ -46,7 +60,7 @@ const CreateUser = (props) => {
           value={password}
         ></TextInput>
         <View style={{ alignItems: "flex-end", marginTop: 64 }}>
-          <TouchableOpacity style={styles.screen} onPress={console.log("SMD")}>
+          <TouchableOpacity style={styles.screen} onPress={createNewUser}>
             <Ionicons name="md-arrow-round-forward" size={24} color="#FFF" />
           </TouchableOpacity>
         </View>

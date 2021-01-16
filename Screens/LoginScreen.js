@@ -23,16 +23,28 @@ const LoginScreen = (props) => {
   //     }, 1500);
   //   }, []);
 
-  //   const login = () => {
-
-  //     //Alert.alert("Invalid credentials");
-  //   };
+  const login = () => {
+    console.log("clicked");
+    fetch(
+      "https://jumbopowerfulcurrencies.patchto.repl.co/auth/login/" +
+        email +
+        "/" +
+        password
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        data.login === "success" ? console.log("perfect") : console.log("smd");
+      })
+      .catch((error) => {
+        Alert.alert("Invalid credentials");
+      });
+  };
 
   return (
     <View style={styles.container}>
       <View style={styles.circle} />
       <View style={{ marginHorizontal: 32 }}>
-        <Text style={styles.header}>Sign Up</Text>
+        <Text style={styles.header}>Log in</Text>
         <TextInput
           style={styles.input}
           placeholder="email"
@@ -46,7 +58,7 @@ const LoginScreen = (props) => {
           value={password}
         ></TextInput>
         <View style={{ alignItems: "flex-end", marginTop: 64 }}>
-          <TouchableOpacity style={styles.screen} onPress={console.log("SMD")}>
+          <TouchableOpacity style={styles.screen} onPress={login}>
             <Ionicons name="md-arrow-round-forward" size={24} color="#FFF" />
           </TouchableOpacity>
         </View>
