@@ -66,6 +66,7 @@ const Map = () => {
             latitude: parseFloat(lat),
             longitude: parseFloat(lng),
           };
+          return x;
         });
 
         setMarkers(arr);
