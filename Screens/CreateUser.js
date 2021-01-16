@@ -62,17 +62,10 @@ const CreateUser = (props) => {
         ></TextInput>
         <View style={{ alignItems: "flex-end", marginTop: 64 }}>
           <TouchableOpacity style={styles.screen} onPress={createNewUser}>
-            <Ionicons name="md-arrow-round-forward" size={24} color="#FFF" />
+            <Ionicons name="md-arrow-forward" size={24} color="#FFF" />
           </TouchableOpacity>
         </View>
-        <View>
-          <TouchableOpacity
-            style={styles.signup}
-            onPress={() => console.log("sign in nav")}
-          >
-            <Text>SignUp</Text>
-          </TouchableOpacity>
-        </View>
+        <View></View>
       </View>
     </View>
   );
@@ -117,10 +110,25 @@ const styles = StyleSheet.create({
     backgroundColor: "#9075E3",
     alignItems: "center",
     justifyContent: "center",
+    bottom: 50,
   },
   signup: {
-    alignItems: "center",
+    position: "absolute",
+    bottom: 0,
+    flexDirection: "column",
     justifyContent: "center",
+    alignItems: "center",
+    alignSelf: "center",
+    height: 50,
+    width: 100,
+    margin: "auto",
+    borderRadius: 50,
+    color: "white",
+    backgroundColor: "#9075E3",
+  },
+
+  text: {
+    color: "white",
   },
 });
 
