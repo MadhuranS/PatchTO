@@ -109,6 +109,8 @@ const Map = () => {
         address.address
     );
 
+    getAllData();
+
     setModalOpen(false),
       setRegion({
         latitude: location.coords.latitude,
