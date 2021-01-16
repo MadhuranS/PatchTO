@@ -6,11 +6,11 @@ import {
   Text,
   TextInput,
   Modal,
-  View,
 } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import * as Location from "expo-location";
 import { Ionicons } from "@expo/vector-icons";
+import EventForm from "./EventForm";
 
 const Map = () => {
   const [region, setRegion] = useState({
@@ -36,9 +36,6 @@ const Map = () => {
 
       let location = await Location.getCurrentPositionAsync({});
       setLocation(location);
-      console.log("test");
-      console.log(location.coords.longitude);
-      console.log(location.coords.latitude);
     })();
   }, []);
 
@@ -74,7 +71,6 @@ const Map = () => {
       latitudeDelta: 0.5,
       longitudeDelta: 0.5,
     });
-    console.log("Test");
   };
 
   return (
@@ -84,14 +80,15 @@ const Map = () => {
         animationType="slide"
         style={styles.modalContent}
       >
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container}>
           <Ionicons
             name="close"
             onPress={() => setModalOpen(false)}
             size={30}
             style={styles.closeButton}
           ></Ionicons>
-        </View>
+          <EventForm></EventForm>
+        </SafeAreaView>
       </Modal>
 
       <MapView
