@@ -376,8 +376,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     alignSelf: "center",
-    height: 50,
-    width: 50,
+    height: 30,
+    width: 125,
     borderRadius: 10,
     backgroundColor: "#00308F",
     color: "#00308F",
@@ -421,7 +421,7 @@ const styles = StyleSheet.create({
 
   find: {
     position: "absolute",
-    bottom: 175,
+    bottom: 150,
 
     flexDirection: "column",
     justifyContent: "center",
