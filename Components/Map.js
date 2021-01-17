@@ -354,7 +354,12 @@ const Map = ({ navigation }) => {
         onPress={() => setModalOpen(true)}
       >
         {/* <Text style={styles.text}>+</Text> */}
-        <Ionicons name="add-outline" size={24} color="#FFF" />
+        <Ionicons
+          style={styles.plus}
+          name="add-outline"
+          size={24}
+          color="#FFF"
+        />
       </TouchableOpacity>
     </SafeAreaView>
   );
@@ -380,8 +385,13 @@ const styles = StyleSheet.create({
     height: 50,
     width: 50,
     borderRadius: 50,
-    borderColor: "rgba(255, 255, 255, 1)",
+    borderColor: "#00308F",
     borderWidth: 5,
+    color: "#00308F",
+  },
+
+  plus: {
+    color: "#00308F",
   },
 
   search: {
@@ -396,7 +406,7 @@ const styles = StyleSheet.create({
     width: 30,
     margin: "auto",
     borderRadius: 10,
-    backgroundColor: "rgb(51, 204, 255)",
+    backgroundColor: "#00308F",
     marginTop: 10,
   },
 
@@ -427,7 +437,7 @@ const styles = StyleSheet.create({
     width: 125,
     margin: "auto",
     borderRadius: 10,
-    backgroundColor: "#9075E3",
+    backgroundColor: "#00308F",
     marginTop: 10,
   },
 
@@ -535,7 +545,7 @@ const styles = StyleSheet.create({
 
     top: -10,
     right: 30,
-
+    color: "white",
     padding: 5,
     justifyContent: "center",
     alignItems: "center",
@@ -547,6 +557,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: -10,
     padding: 5,
+    color: "white",
     justifyContent: "center",
     alignItems: "center",
     alignSelf: "center",
@@ -566,7 +577,7 @@ const styles = StyleSheet.create({
   modalContainer: {
     alignItems: "center",
     alignSelf: "center",
-    backgroundColor: "#80bfff",
+    backgroundColor: "#00308F",
     marginTop: 250,
     width: 350,
     padding: 0,

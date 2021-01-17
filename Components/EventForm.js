@@ -153,7 +153,7 @@ const styles = StyleSheet.create({
     width: 200,
     margin: "auto",
     borderRadius: 50,
-    backgroundColor: "#9075E3",
+    backgroundColor: "#00308F",
   },
 
   submitText: {
