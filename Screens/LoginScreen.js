@@ -30,8 +30,10 @@ const LoginScreen = (props) => {
     )
       .then((response) => response.json())
       .then((data) => {
-        data.login === "success" ? console.log("perfect") : console.log("smd");
-        props.navigation.navigate("Map");
+        if (data.id) {
+          const id = data.id;
+          props.navigation.navigate("Map", { uid: id });
+        }
       })
       .catch((error) => {
         Alert.alert("Invalid credentials");
