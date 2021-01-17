@@ -252,32 +252,39 @@ const Map = ({ navigation }) => {
         </SafeAreaView>
       </Modal>
 
-      <Modal visible={voteModal} style={styles.voteModal}>
-        <Ionicons
-          name="close"
-          onPress={() => setVoteModal(false)}
-          size={30}
-          style={styles.closeButton}
-        ></Ionicons>
-        <SafeAreaView style={styles.voteView}>
-          <TouchableOpacity
-            style={styles.vote1}
-            onPress={() => {
-              console.log("test1");
-              upvote();
-            }}
-          >
-            <Text style={styles.voteText}>Up!</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.vote2}
-            onPress={() => {
-              console.log("test1");
-              downvote();
-            }}
-          >
-            <Text style={styles.voteText}>Down!</Text>
-          </TouchableOpacity>
+      <Modal
+        visible={voteModal}
+        style={styles.voteModal}
+        presentationStyle="overFullScreen"
+        transparent
+      >
+        <SafeAreaView style={styles.modalContainer}>
+          <Ionicons
+            name="close"
+            onPress={() => setVoteModal(false)}
+            size={30}
+            style={styles.closeButton}
+          ></Ionicons>
+          <SafeAreaView style={styles.voteView}>
+            <Ionicons
+              name="thumbs-up-outline"
+              style={styles.vote1}
+              size={50}
+              onPress={() => {
+                console.log("test1");
+                upvote();
+              }}
+            ></Ionicons>
+            <Ionicons
+              name="thumbs-down-outline"
+              size={50}
+              style={styles.vote2}
+              onPress={() => {
+                console.log("test1");
+                downvote();
+              }}
+            ></Ionicons>
+          </SafeAreaView>
         </SafeAreaView>
       </Modal>
 
@@ -519,32 +526,26 @@ const styles = StyleSheet.create({
 
   vote1: {
     position: "absolute",
-    left: 50,
-    top: 250,
-    marginRight: 30,
 
-    width: 125,
+    top: -10,
+    right: 30,
+
     padding: 5,
     justifyContent: "center",
     alignItems: "center",
     alignSelf: "center",
     borderRadius: 10,
-    backgroundColor: "green",
   },
 
   vote2: {
     position: "absolute",
-    right: 50,
-    marginLeft: 30,
-    top: 250,
+    top: -10,
     padding: 5,
     justifyContent: "center",
     alignItems: "center",
     alignSelf: "center",
-
+    left: 30,
     borderRadius: 10,
-    backgroundColor: "red",
-    width: 125,
   },
 
   voteModal: {
@@ -553,7 +554,18 @@ const styles = StyleSheet.create({
   },
 
   voteText: {
-    fontSize: 30,
+    fontSize: 15,
+    color: "white",
+  },
+  modalContainer: {
+    alignItems: "center",
+    alignSelf: "center",
+    backgroundColor: "#80bfff",
+    marginTop: 250,
+    width: 350,
+    padding: 0,
+    height: 100,
+    borderRadius: 10,
   },
 });
 
