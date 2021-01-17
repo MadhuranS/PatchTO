@@ -102,6 +102,8 @@ const Map = ({ navigation }) => {
         values: values,
         date: date,
         address: address.address,
+        upvotes: [],
+        downvotes: [],
       },
     ]);
 
