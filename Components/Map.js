@@ -327,7 +327,7 @@ const Map = ({ navigation }) => {
         ))}
       </MapView>
       <TouchableOpacity style={styles.find} onPress={() => getLocation()}>
-        <Text style={styles.searchText}>Find Location</Text>
+        <Text style={styles.searchText}>My Location</Text>
       </TouchableOpacity>
       <TextInput
         style={styles.input}
@@ -342,7 +342,7 @@ const Map = ({ navigation }) => {
               newSearch();
             }}
           >
-            <Text>{x}</Text>
+            <Text style={{ padding: 3, paddingLeft: 15 }}>{x}</Text>
           </TouchableOpacity>
         ))}
       </SafeAreaView>
@@ -353,13 +353,7 @@ const Map = ({ navigation }) => {
         style={styles.overlay}
         onPress={() => setModalOpen(true)}
       >
-        {/* <Text style={styles.text}>+</Text> */}
-        <Ionicons
-          style={styles.plus}
-          name="add-outline"
-          size={24}
-          color="#FFF"
-        />
+        <Text style={styles.searchText}>Add Event</Text>
       </TouchableOpacity>
     </SafeAreaView>
   );
@@ -384,9 +378,8 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     height: 50,
     width: 50,
-    borderRadius: 50,
-    borderColor: "#00308F",
-    borderWidth: 5,
+    borderRadius: 10,
+    backgroundColor: "#00308F",
     color: "#00308F",
   },
 
@@ -413,7 +406,7 @@ const styles = StyleSheet.create({
   liveAddresses: {
     position: "absolute",
     top: 70,
-    left: 56,
+    left: 57,
     flexDirection: "column",
     paddingLeft: 20,
     alignSelf: "center",
@@ -423,6 +416,7 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 10,
     backgroundColor: "white",
     marginTop: 10,
+    backgroundColor: "#e6e9ed",
   },
 
   find: {
