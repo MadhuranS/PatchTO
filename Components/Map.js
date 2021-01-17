@@ -28,6 +28,7 @@ const Map = () => {
   const [search, setSearch] = useState("");
   const [loadingModal, setLoadingModal] = useState(true);
   const [voteModal, setVoteModal] = useState(false);
+  const [liveAddresses, setLiveAddresses] = useState([]);
 
   useEffect(() => {
     (async () => {
@@ -46,6 +47,12 @@ const Map = () => {
     getAllData();
   }, []);
 
+  useEffect(() => {
+    setTimeout(function () {
+      updateSearchList();
+    }, 3000);
+  }, [search]);
+
   let text = "Waiting..";
   if (errorMsg) {
     text = errorMsg;
@@ -57,8 +64,6 @@ const Map = () => {
     fetch("https://patchto.herokuapp.com/api/pins/all")
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
-
         const arr = data.map((x) => {
           const coors = x.latlng;
           const lat = coors.latitude;
@@ -156,7 +161,7 @@ const Map = () => {
 
   const get_coords = () => {
     return new Promise((resolve, reject) => {
-      fetch("https://patchto.herokuapp.com/api/coordinates/" + search.search)
+      fetch("https://patchto.herokuapp.com/api/coordinates/" + search)
         .then((res) => res.json())
         .then((res) => {
           //setlinks(res);
@@ -165,6 +170,24 @@ const Map = () => {
           //setloading2(false);
         });
     });
+  };
+
+  const searchAutocomplete = () => {
+    return new Promise((resolve, reject) => {
+      fetch("https://patchto.herokuapp.com/api/autocomplete/" + search.search)
+        .then((res) => res.json())
+        .then((res) => {
+          resolve(res.addresses);
+        });
+    });
+  };
+
+  const updateSearchList = () => {
+    (async () => {
+      const searchList = await searchAutocomplete();
+      console.log(searchList);
+      setLiveAddresses(searchList);
+    })();
   };
 
   const makeVoteModal = (marker) => {
@@ -248,6 +271,16 @@ const Map = () => {
         style={styles.input}
         onChangeText={(search) => setSearch({ search })}
       ></TextInput>
+      {liveAddresses.map((x, i) => (
+        <TouchableOpacity
+          onPress={() => {
+            setSearch(x);
+            newSearch();
+          }}
+        >
+          <Text>{x}</Text>
+        </TouchableOpacity>
+      ))}
       <TouchableOpacity style={styles.search} onPress={() => newSearch()}>
         <Text style={styles.searchText}>Search</Text>
       </TouchableOpacity>
