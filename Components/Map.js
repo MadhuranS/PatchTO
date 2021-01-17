@@ -12,7 +12,10 @@ import * as Location from "expo-location";
 import { Ionicons } from "@expo/vector-icons";
 import EventForm from "./EventForm";
 
-const Map = () => {
+const Map = ({ navigation }) => {
+  const { uid } = navigation.state.params;
+  console.log(uid);
+
   const [region, setRegion] = useState({
     latitude: 43.6532,
     longitude: -79.3832,
@@ -28,6 +31,8 @@ const Map = () => {
   const [search, setSearch] = useState("");
   const [loadingModal, setLoadingModal] = useState(true);
   const [voteModal, setVoteModal] = useState(false);
+
+  const [selectedpin, setselectedpin] = useState(null);
 
   useEffect(() => {
     (async () => {
@@ -167,6 +172,30 @@ const Map = () => {
     });
   };
 
+  const upvote = () => {
+    fetch(
+      "https://patchto.herokuapp.com/api/pins/upvote/" +
+        markers[selectedpin].id +
+        "/" +
+        uid
+    ).then((res) => {
+      setVoteModal(false);
+      getAllData();
+    });
+  };
+
+  const downvote = () => {
+    fetch(
+      "https://patchto.herokuapp.com/api/pins/downvote/" +
+        markers[selectedpin].id +
+        "/" +
+        uid
+    ).then((res) => {
+      setVoteModal(false);
+      getAllData();
+    });
+  };
+
   const makeVoteModal = (marker) => {
     setVoteModal(true);
   };
@@ -208,11 +237,20 @@ const Map = () => {
         <SafeAreaView style={styles.voteView}>
           <TouchableOpacity
             style={styles.vote1}
-            onPress={() => console.log("test1")}
+            onPress={() => {
+              console.log("test1");
+              upvote();
+            }}
           >
             <Text style={styles.voteText}>Up!</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.vote2}>
+          <TouchableOpacity
+            style={styles.vote2}
+            onPress={() => {
+              console.log("test1");
+              downvote();
+            }}
+          >
             <Text style={styles.voteText}>Down!</Text>
           </TouchableOpacity>
         </SafeAreaView>
@@ -226,13 +264,22 @@ const Map = () => {
       >
         {markers.map((marker, i) => (
           <Marker key={i} coordinate={marker.latlng} description="test">
-            <Callout onPress={() => makeVoteModal(marker)} tooltip>
+            <Callout
+              onPress={() => {
+                makeVoteModal(marker);
+                setselectedpin(i);
+              }}
+              tooltip
+            >
               <SafeAreaView>
                 <SafeAreaView style={styles.bubble}>
                   <Text>Address: {marker.address}</Text>
                   <Text>Date Posted: {marker.date}</Text>
                   <Text>Event Name: {marker.values.name}</Text>
                   <Text>Event Description: {marker.values.description}</Text>
+                  <Text>
+                    votes: {marker.upvotes.length - marker.downvotes.length}
+                  </Text>
                 </SafeAreaView>
                 <SafeAreaView style={styles.arrowBorder} />
                 <SafeAreaView style={styles.arrow} />
