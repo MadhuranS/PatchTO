@@ -43,8 +43,8 @@ const LoginScreen = (props) => {
   return (
     <View style={styles.container}>
       <View style={styles.circle} />
-      <View style={{ marginHorizontal: 32 }}>
-        <Text style={styles.header}>Log in</Text>
+      <View style={{ marginHorizontal: 32, flex: 0.95 }}>
+        <Text style={{ ...styles.header, fontWeight: "bold" }}>Log in</Text>
         <TextInput
           style={styles.input}
           placeholder="email"
@@ -63,12 +63,14 @@ const LoginScreen = (props) => {
             <Ionicons name="md-arrow-forward" size={24} color="#FFF" />
           </TouchableOpacity>
         </View>
-        <View>
+        <View style={styles.bottomPart}>
           <TouchableOpacity
             style={styles.signup}
             onPress={() => props.navigation.navigate("CreateUser")}
           >
-            <Text style={styles.text}>Sign Up</Text>
+            <Text style={{ ...styles.text, fontWeight: "bold" }}>
+              Dont have an account? Sign Up!
+            </Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -112,7 +114,7 @@ const styles = StyleSheet.create({
     width: 70,
     height: 70,
     borderRadius: 35,
-    backgroundColor: "#9075E3",
+    backgroundColor: "#00308F",
     alignItems: "center",
     justifyContent: "center",
     bottom: 50,
@@ -125,15 +127,18 @@ const styles = StyleSheet.create({
     alignItems: "center",
     alignSelf: "center",
     height: 50,
-    width: 100,
+    width: 300,
     margin: "auto",
     borderRadius: 50,
     color: "white",
-    backgroundColor: "#9075E3",
+    backgroundColor: "#00308F",
   },
 
   text: {
     color: "white",
+  },
+  bottomPart: {
+    flex: 1,
   },
 });
 

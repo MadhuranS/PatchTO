@@ -44,7 +44,7 @@ const CreateUser = (props) => {
     <View style={styles.container}>
       <View style={styles.circle} />
       <View style={{ marginHorizontal: 32 }}>
-        <Text style={styles.header}>Sign Up</Text>
+        <Text style={{ ...styles.header, fontWeight: "bold" }}>Sign Up</Text>
         <TextInput
           style={styles.input}
           placeholder="email"
@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
     width: 70,
     height: 70,
     borderRadius: 35,
-    backgroundColor: "#9075E3",
+    backgroundColor: "#00308F",
     alignItems: "center",
     justifyContent: "center",
     bottom: 50,

@@ -353,7 +353,8 @@ const Map = ({ navigation }) => {
         style={styles.overlay}
         onPress={() => setModalOpen(true)}
       >
-        <Text style={styles.text}>+</Text>
+        {/* <Text style={styles.text}>+</Text> */}
+        <Ionicons name="add-outline" size={24} color="#FFF" />
       </TouchableOpacity>
     </SafeAreaView>
   );
