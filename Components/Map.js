@@ -316,7 +316,7 @@ const Map = ({ navigation }) => {
                   <Text>Event Name: {marker.values.name}</Text>
                   <Text>Event Description: {marker.values.description}</Text>
                   <Text>
-                    votes: {marker.upvotes.length - marker.downvotes.length}
+                    Votes: {marker.upvotes.length - marker.downvotes.length}
                   </Text>
                 </SafeAreaView>
                 <SafeAreaView style={styles.arrowBorder} />
@@ -378,7 +378,6 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     height: 50,
     width: 50,
-    margin: "auto",
     borderRadius: 50,
     borderColor: "rgba(255, 255, 255, 1)",
     borderWidth: 5,
@@ -417,7 +416,7 @@ const styles = StyleSheet.create({
 
   find: {
     position: "absolute",
-    top: 500,
+    bottom: 175,
 
     flexDirection: "column",
     justifyContent: "center",
@@ -445,7 +444,7 @@ const styles = StyleSheet.create({
     color: "rgba(255, 255, 255, 1)",
     textAlign: "center",
     justifyContent: "center",
-    marginBottom: 5,
+
     alignItems: "center",
     alignSelf: "center",
   },
