@@ -318,19 +318,21 @@ const Map = ({ navigation }) => {
         style={styles.input}
         onChangeText={(search) => setSearch({ search })}
       ></TextInput>
-      {liveAddresses.map((x, i) => (
-        <TouchableOpacity
-          key={i}
-          onPress={() => {
-            setSearch(x);
-            newSearch();
-          }}
-        >
-          <Text>{x}</Text>
-        </TouchableOpacity>
-      ))}
+      <SafeAreaView style={styles.liveAddresses}>
+        {liveAddresses.map((x, i) => (
+          <TouchableOpacity
+            key={i}
+            onPress={() => {
+              setSearch(x);
+              newSearch();
+            }}
+          >
+            <Text>{x}</Text>
+          </TouchableOpacity>
+        ))}
+      </SafeAreaView>
       <TouchableOpacity style={styles.search} onPress={() => newSearch()}>
-        <Text style={styles.searchText}>Search</Text>
+        <Text style={styles.searchText}>{">"}</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.overlay}
@@ -354,7 +356,7 @@ const styles = StyleSheet.create({
   },
   overlay: {
     position: "absolute",
-    bottom: 50,
+    bottom: 100,
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
@@ -369,24 +371,39 @@ const styles = StyleSheet.create({
 
   search: {
     position: "absolute",
-    top: 80,
-    right: 70,
+    top: 40,
+    right: 20,
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
     alignSelf: "center",
     height: 30,
-    width: 125,
+    width: 30,
     margin: "auto",
     borderRadius: 10,
     backgroundColor: "rgb(51, 204, 255)",
     marginTop: 10,
   },
 
+  liveAddresses: {
+    position: "absolute",
+    top: 70,
+    left: 56,
+    flexDirection: "column",
+    paddingLeft: 20,
+    alignSelf: "center",
+    width: 300,
+    margin: "auto",
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10,
+    backgroundColor: "white",
+    marginTop: 10,
+  },
+
   find: {
     position: "absolute",
-    top: 80,
-    left: 70,
+    top: 500,
+
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
@@ -426,11 +443,12 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     height: 30,
     width: 300,
-    borderRadius: 20,
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
     margin: "auto",
     backgroundColor: "rgba(255, 255, 255, 1)",
     color: "black",
-    paddingLeft: 10,
+    paddingLeft: 15,
     paddingRight: 10,
   },
 
