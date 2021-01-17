@@ -332,7 +332,7 @@ const Map = ({ navigation }) => {
         ))}
       </SafeAreaView>
       <TouchableOpacity style={styles.search} onPress={() => newSearch()}>
-        <Text style={styles.searchText}>{">"}</Text>
+        <Text style={styles.searchText}>Go</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.overlay}
