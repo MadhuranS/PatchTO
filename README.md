@@ -4,7 +4,7 @@
 ![imgae not loading](https://challengepost-s3-challengepost.netdna-ssl.com/photos/production/software_photos/001/345/224/datas/original.png)
 
 How to Install and run the project: 
-```
+
 SETUP
 ```sh
 $ npm install
